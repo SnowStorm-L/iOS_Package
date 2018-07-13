@@ -12,8 +12,6 @@
 		0BE2961520F898F700EC3ADA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0BE2961320F898F700EC3ADA /* Main.storyboard */; };
 		0BE2961720F898F800EC3ADA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0BE2961620F898F800EC3ADA /* Assets.xcassets */; };
 		0BE2961A20F898F800EC3ADA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0BE2961820F898F800EC3ADA /* LaunchScreen.storyboard */; };
-		0BE2964820F8ABC300EC3ADA /* Create_Framework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BE2964720F8ABC300EC3ADA /* Create_Framework.framework */; };
-		0BE2964920F8ABC300EC3ADA /* Create_Framework.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0BE2964720F8ABC300EC3ADA /* Create_Framework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -23,7 +21,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				0BE2964920F8ABC300EC3ADA /* Create_Framework.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -38,7 +35,6 @@
 		0BE2961620F898F800EC3ADA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0BE2961920F898F800EC3ADA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0BE2961B20F898F800EC3ADA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		0BE2964720F8ABC300EC3ADA /* Create_Framework.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Create_Framework.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -46,7 +42,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0BE2964820F8ABC300EC3ADA /* Create_Framework.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -56,7 +51,6 @@
 		0BE2960320F898F700EC3ADA = {
 			isa = PBXGroup;
 			children = (
-				0BE2964720F8ABC300EC3ADA /* Create_Framework.framework */,
 				0BE2960E20F898F700EC3ADA /* Use_Framework */,
 				0BE2960D20F898F700EC3ADA /* Products */,
 			);
@@ -308,7 +302,7 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = Use_Framework/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -332,7 +326,7 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = Use_Framework/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

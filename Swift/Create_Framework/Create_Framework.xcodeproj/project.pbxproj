@@ -6,20 +6,6 @@
 	objectVersion = 50;
 	objects = {
 
-/* Begin PBXAggregateTarget section */
-		0BE295FE20F891D500EC3ADA /* UniversalBuilder */ = {
-			isa = PBXAggregateTarget;
-			buildConfigurationList = 0BE295FF20F891D500EC3ADA /* Build configuration list for PBXAggregateTarget "UniversalBuilder" */;
-			buildPhases = (
-				0BE2960220F8927900EC3ADA /* ShellScript */,
-			);
-			dependencies = (
-			);
-			name = UniversalBuilder;
-			productName = UniversalBuilder;
-		};
-/* End PBXAggregateTarget section */
-
 /* Begin PBXBuildFile section */
 		0BE295F620F8884000EC3ADA /* Create_Framework.h in Headers */ = {isa = PBXBuildFile; fileRef = 0BE295F420F8884000EC3ADA /* Create_Framework.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0BE295FD20F88DAA00EC3ADA /* TestFramework.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE295FC20F88DAA00EC3ADA /* TestFramework.swift */; };
@@ -115,9 +101,6 @@
 						CreatedOnToolsVersion = 9.3.1;
 						LastSwiftMigration = 0930;
 					};
-					0BE295FE20F891D500EC3ADA = {
-						CreatedOnToolsVersion = 9.3.1;
-					};
 				};
 			};
 			buildConfigurationList = 0BE295EB20F8884000EC3ADA /* Build configuration list for PBXProject "Create_Framework" */;
@@ -133,7 +116,6 @@
 			projectRoot = "";
 			targets = (
 				0BE295F020F8884000EC3ADA /* Create_Framework */,
-				0BE295FE20F891D500EC3ADA /* UniversalBuilder */,
 			);
 		};
 /* End PBXProject section */
@@ -149,19 +131,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		0BE2960220F8927900EC3ADA /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# 合并脚本\n\n# 1\n# 如果任何命令失败，请将bash脚本设置为立即退出。\nset -e\n\n# 2\n# 设置一些常量以供以后使用。\n\n# 这里修改生成Framework的名称\n# 生成在桌面\nFRAMEWORK_NAME=\"Create_Framework\"\n\n# 3\n# 如果存在先前构建的残余，请删除它们。\nif [ -d \"${SRCROOT}/build\" ]; then\nrm -rf \"${SRCROOT}/build\"\nfi\n\n# 4\n# 构建设备和模拟器的框架（使用所有需要的架构）。\n# 一般现在的SDK在上线的时候,都只保留真机的SDK配置(不设置模拟器的配置)\n\n# 真机的\nxcodebuild -target \"${FRAMEWORK_NAME}\" -configuration Release -arch arm64 -arch armv7 -arch armv7s only_active_arch=no defines_module=yes -sdk \"iphoneos\"\n\n# 模拟器的\nxcodebuild -target \"${FRAMEWORK_NAME}\" -configuration Release -arch x86_64 -arch i386 only_active_arch=no defines_module=yes -sdk \"iphonesimulator\"\n\n# 5\n# 如果之前运行过脚本(已经在桌面生成了Framework), 则先移除旧的Framework\n# if [ -d \"${HOME}/Desktop/${FRAMEWORK_NAME}.framework\" ]; then\n# rm -rf \"${HOME}/Desktop/${FRAMEWORK_NAME}.framework\"\n# fi\n\n# 6\n# 将Framework复制到桌面\n# cp -r \"${SRCROOT}/build/Release-iphoneos/${FRAMEWORK_NAME}.framework\" \"${HOME}/Desktop/${FRAMEWORK_NAME}.framework\"\n\n# 7\n# 将模拟器release Framework和真机release Framework\n# 两个Framework合并成为通用的Framework\n# 一个真机和模拟器都可以在release环境下的Framework\n# lipo -create -output \"${HOME}/Desktop/${FRAMEWORK_NAME}.framework/${FRAMEWORK_NAME}\" \"${SRCROOT}/build/Release-iphoneos/${FRAMEWORK_NAME}.framework/${FRAMEWORK_NAME}\" \"${SRCROOT}/build/Release-iphonesimulator/${FRAMEWORK_NAME}.framework/${FRAMEWORK_NAME}\"\n\n# 8\n# Copy the Swift module mappings for the simulator into the\n# framework.  The device mappings already exist from step 6.\n\n# 将模拟器的Swift模块映射复制到框架中。 设备映射已从步骤6开始存在。\n# cp -r \"${SRCROOT}/build/Release-iphonesimulator/${FRAMEWORK_NAME}.framework/Modules/${FRAMEWORK_NAME}.swiftmodule/\" \"${HOME}/Desktop/${FRAMEWORK_NAME}.framework/Modules/${FRAMEWORK_NAME}.swiftmodule\"\n\n# 9\n# Delete the most recent build.\n# if [ -d \"${SRCROOT}/build\" ]; then\n# rm -rf \"${SRCROOT}/build\"\n# fi";
-		};
 		0BE2963B20F8A55000EC3ADA /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -321,19 +290,20 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = Create_Framework/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				ONLY_ACTIVE_ARCH = NO;
+				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.bestidear.Create-Framework";
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VALID_ARCHS = "armv7 armv7s arm64";
 			};
 			name = Debug;
 		};
@@ -349,36 +319,19 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = Create_Framework/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				ONLY_ACTIVE_ARCH = NO;
+				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.bestidear.Create-Framework";
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Release;
-		};
-		0BE2960020F891D500EC3ADA /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				ONLY_ACTIVE_ARCH = NO;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Debug;
-		};
-		0BE2960120F891D500EC3ADA /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				ONLY_ACTIVE_ARCH = NO;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				VALID_ARCHS = "armv7 armv7s arm64";
 			};
 			name = Release;
 		};
@@ -399,15 +352,6 @@
 			buildConfigurations = (
 				0BE295FA20F8884000EC3ADA /* Debug */,
 				0BE295FB20F8884000EC3ADA /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		0BE295FF20F891D500EC3ADA /* Build configuration list for PBXAggregateTarget "UniversalBuilder" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				0BE2960020F891D500EC3ADA /* Debug */,
-				0BE2960120F891D500EC3ADA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
