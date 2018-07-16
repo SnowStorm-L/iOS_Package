@@ -11,6 +11,12 @@ import Create_Framework
 
 class ViewController: UIViewController {
     
+    
+    // https://developer.apple.com/library/archive/documentation/DeveloperTools/Conceptual/WhatsNewXcode/xcode_9/xcode_9.html#//apple_ref/doc/uid/TP40004626
+    // New in Xcode 9 – Swift static libary support.
+    
+    // Xcode9开始支持静态库编译, 静态库图片,xib,sb等读取方式有待研究
+    
     let instance = Create_Framework.share
     
     override func viewDidLoad() {
